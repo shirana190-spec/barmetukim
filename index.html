@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>סיכום הזמנה בר מתוקים 🎂</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Assistant', sans-serif;
+            background: linear-gradient(135deg, #fce7f3 0%, #e0f2fe 50%, #f3e8ff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .candy-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 2.5rem;
+            border: 5px solid white;
+            box-shadow: 0 25px 50px rgba(219, 39, 119, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .header-bg {
+            background: linear-gradient(90deg, #ff8fab, #ffafcc);
+            padding: 2.5rem 1rem;
+            text-align: center;
+            color: white;
+        }
+
+        .input-style {
+            border: 2px solid #fbcfe8 !important;
+            border-radius: 1.25rem;
+            padding: 0.85rem 1rem;
+            width: 100%;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .input-style:focus {
+            border-color: #f472b6 !important;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.1);
+        }
+
+        .input-style:disabled {
+            background-color: #fdf2f8;
+            color: #db2777;
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            color: #be185d;
+            margin-bottom: 0.4rem;
+            margin-right: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-copy {
+            background: linear-gradient(45deg, #ec4899, #db2777);
+            color: white;
+            font-weight: 800;
+            padding: 1.25rem;
+            border-radius: 1.5rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 10px 20px rgba(219, 39, 119, 0.2);
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.15rem;
+        }
+
+        .btn-copy:active {
+            transform: scale(0.96);
+            box-shadow: 0 5px 10px rgba(219, 39, 119, 0.2);
+        }
+
+        .toast {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 3rem;
+            z-index: 1000;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.4;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <div class="floating-emoji text-5xl" style="top: 5%; right: 5%;">🍩</div>
+    <div class="floating-emoji text-5xl" style="bottom: 5%; left: 5%;">🍭</div>
+
+    <div class="candy-card">
+        <div class="header-bg">
+            <h1 class="text-3xl font-black italic">סיכום הזמנה בר מתוקים 🎂</h1>
+        </div>
+
+        <div class="p-6 space-y-4">
+            <!-- סוג עוגה -->
+            <div>
+                <label>סוג עוגה:</label>
+                <select id="cakeType" class="input-style" onchange="handleTypeChange()">
+                    <option value="">בחר סוג עוגה...</option>
+                    <option value="עוגת גן a3 רק בטעם שוקולד">עוגת גן a3 רק בטעם שוקולד</option>
+                    <option value="קוטר 26 דף אכיל">קוטר 26 דף אכיל</option>
+                    <option value="קוטר 26 דמויות / אלמנטים">קוטר 26 דמויות / אלמנטים</option>
+                    <option value="קוטר 20 וינטאג׳">קוטר 20 וינטאג׳</option>
+                    <option value="קוטר 26 וינטאג׳">קוטר 26 וינטאג׳</option>
+                    <option value="קוטר 24 וינטאג׳ בצורת לב">קוטר 24 וינטאג׳ בצורת לב</option>
+                    <option value="בנטו קוטר 10">בנטו קוטר 10</option>
+                </select>
+            </div>
+
+            <!-- טעמים -->
+            <div>
+                <label>טעם העוגה:</label>
+                <select id="cakeFlavor" class="input-style">
+                    <option value="">בחר טעם...</option>
+                    <option value="שוקולד שוקולד">שוקולד שוקולד</option>
+                    <option value="שוקולד פררו רושה">שוקולד פררו רושה</option>
+                    <option value="וניל ריבת חלב">וניל ריבת חלב</option>
+                    <option value="וניל אוראו">וניל אוראו</option>
+                    <option value="וניל לוטוס">וניל לוטוס</option>
+                </select>
+            </div>
+
+            <!-- עיצוב -->
+            <div>
+                <label>תיאור העיצוב:</label>
+                <textarea id="design" rows="2" class="input-style" placeholder="למשל: נסיכות, כדורגל, כתר, סופרמן..."></textarea>
+            </div>
+
+            <!-- שם וגיל -->
+            <div>
+                <label>שם, גיל וכיתוב:</label>
+                <input type="text" id="details" class="input-style" placeholder="מה לכתוב על העוגה?">
+            </div>
+
+            <!-- אלרגיות ותאריך -->
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label>יש אלרגיות?</label>
+                    <select id="hasAllergies" class="input-style" onchange="toggleAllergyDetail()">
+                        <option value="לא">לא</option>
+                        <option value="כן">כן</option>
+                    </select>
+                </div>
+                <div>
+                    <label>תאריך איסוף:</label>
+                    <input type="date" id="pickupDate" class="input-style">
+                </div>
+            </div>
+
+            <!-- פירוט אלרגיות -->
+            <div id="allergyDetailSection" class="hidden">
+                <label class="text-red-600">פירוט אלרגיות:</label>
+                <input type="text" id="allergyType" class="input-style border-red-200 bg-red-50" placeholder="למשל: בוטנים, גלוטן">
+            </div>
+
+            <!-- כפתור העתקה -->
+            <button onclick="copySummary()" class="btn-copy mt-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                העתק סיכום להדבקה
+            </button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">הסיכום הועתק! ✅<br>אפשר להדביק בוואטסאפ</div>
+
+    <script>
+        function handleTypeChange() {
+            const cakeType = document.getElementById('cakeType').value;
+            const flavorSelect = document.getElementById('cakeFlavor');
+            
+            if (cakeType === "עוגת גן a3 רק בטעם שוקולד" || cakeType === "בנטו קוטר 10") {
+                flavorSelect.value = "שוקולד שוקולד";
+                flavorSelect.disabled = true;
+            } else {
+                flavorSelect.disabled = false;
+            }
+        }
+
+        function toggleAllergyDetail() {
+            const hasAllergies = document.getElementById('hasAllergies').value;
+            const section = document.getElementById('allergyDetailSection');
+            section.classList.toggle('hidden', hasAllergies === "לא");
+        }
+
+        function getDayName(dateString) {
+            const days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+            const date = new Date(dateString);
+            return days[date.getDay()];
+        }
+
+        function copySummary() {
+            const cakeType = document.getElementById('cakeType').value || "לא נבחר";
+            const cakeFlavor = document.getElementById('cakeFlavor').value || "לא נבחר";
+            const design = document.getElementById('design').value || "ללא";
+            const details = document.getElementById('details').value || "לא צוין";
+            
+            const hasAllergies = document.getElementById('hasAllergies').value;
+            const allergyType = document.getElementById('allergyType').value;
+            const allergyText = hasAllergies === "כן" ? `כן (${allergyType || "לא פורט"})` : "לא";
+            
+            const pickupDate = document.getElementById('pickupDate').value;
+            let formattedDate = "לא נבחר";
+            if (pickupDate) {
+                const dateParts = pickupDate.split('-');
+                const dayName = getDayName(pickupDate);
+                formattedDate = `יום ${dayName}, ${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+            }
+
+            // עדכון: הכותרת בהודעה היא רק "סיכום הזמנה"
+            const summary = `*סיכום הזמנה* 🎂
+
+*סוג עוגה:* ${cakeType}
+*טעמים:* ${cakeFlavor}
+*עיצוב:* ${design}
+*שם, גיל וכיתוב:* ${details}
+*אלרגיות:* ${allergyText}
+
+📅 *תאריך איסוף:* ${formattedDate}`;
+
+            const textArea = document.createElement("textarea");
+            textArea.value = summary;
+            document.body.appendChild(textArea);
+            textArea.select();
+            textArea.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                alert('העתקה נכשלה');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3500);
+        }
+    </script>
+
+</body>
+</html>
