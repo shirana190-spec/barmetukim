@@ -131,6 +131,12 @@
         </div>
 
         <div class="p-6 space-y-4">
+            <!-- שם הלקוח -->
+            <div>
+                <label>שם הלקוח:</label>
+                <input type="text" id="customerName" class="input-style" placeholder="הכנס שם לקוח">
+            </div>
+
             <!-- סוג עוגה -->
             <div>
                 <label>סוג עוגה:</label>
@@ -228,6 +234,7 @@
         }
 
         function copySummary() {
+            const customerName = document.getElementById('customerName').value || "לא צוין";
             const cakeType = document.getElementById('cakeType').value || "לא נבחר";
             const cakeFlavor = document.getElementById('cakeFlavor').value || "לא נבחר";
             const design = document.getElementById('design').value || "ללא";
@@ -245,9 +252,9 @@
                 formattedDate = `יום ${dayName}, ${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
             }
 
-            // עדכון: הכותרת בהודעה היא רק "סיכום הזמנה"
             const summary = `*סיכום הזמנה* 🎂
 
+*שם הלקוח:* ${customerName}
 *סוג עוגה:* ${cakeType}
 *טעמים:* ${cakeFlavor}
 *עיצוב:* ${design}
